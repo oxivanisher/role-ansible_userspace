@@ -1,0 +1,25 @@
+---
+
+- name: install requirements
+  ansible.builtin.package:
+    name:
+      - redis-server
+      - python3
+      - python3-pip
+    state: present
+
+- name: enable redis-server
+  ansible.builtin.service:
+    name: redis-server
+    state: started
+    enabled: yes
+
+- name: install redis and ansible python library via pip
+  ansible.builtin.pip:
+    name:
+      - redis
+      - ansible
+    extra_args: --user
+    executable: pip3
+  become: yes
+  become_user: "{{ ansible_install_for_user }}"
