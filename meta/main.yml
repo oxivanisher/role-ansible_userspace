@@ -1,5 +1,6 @@
 galaxy_info:
   role_name: ansible_userspace
+  namespace: oxivanisher
   author: Marc Urben
   description: Install ansible in userspace
   company: Thunderbluff
