@@ -1,18 +1,18 @@
 ---
-- name: install requirements
+- name: Install requirements
   ansible.builtin.package:
     name:
       - redis-server
       - python3-full
     state: present
 
-- name: enable redis-server
+- name: Enable redis-server
   ansible.builtin.service:
     name: redis-server
     state: started
     enabled: true
 
-- name: install redis and ansible python library via pip
+- name: Install redis and ansible python library via pip
   ansible.builtin.pip:
     name:
       - redis
