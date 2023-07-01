@@ -4,6 +4,7 @@
     name:
       - redis-server
       - python3-full
+      - python3-virtualenv
     state: present
 
 - name: Enable redis-server
