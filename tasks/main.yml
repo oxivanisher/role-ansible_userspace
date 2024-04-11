@@ -18,6 +18,7 @@
     name: redis-server
     state: started
     enabled: true
+  ignore_errors: "{{ ansible_check_mode }}"
   become: true
   become_user: root
 
@@ -56,5 +57,6 @@
     - ansible-playbook
     - ansible-galaxy
     - python3
+  ignore_errors: "{{ ansible_check_mode }}"
   become: true
   become_user: "{{ ansible_userspace_user }}"
