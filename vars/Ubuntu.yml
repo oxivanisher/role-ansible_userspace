@@ -1,0 +1,5 @@
+---
+ansible_userspace_packages:
+  - redis-server
+  - libpython3-dev
+  - python3-venv

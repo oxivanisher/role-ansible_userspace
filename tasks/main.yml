@@ -1,23 +1,60 @@
 ---
-- name: Install requirements
+- name: Gather os specific variables
+  ansible.builtin.include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_distribution }}.yml"
+  tags: vars
+
+- name: Ensure requried packages are installed for Debian
   ansible.builtin.package:
-    name:
-      - redis-server
-      - python3-full
-      - python3-virtualenv
+    name: "{{ ansible_userspace_packages }}"
     state: present
+  become: true
+  become_user: root
 
 - name: Enable redis-server
   ansible.builtin.service:
     name: redis-server
     state: started
     enabled: true
+  become: true
+  become_user: root
 
-- name: Install redis and ansible python library via pip
+- name: Install required dependencies into the python environment
   ansible.builtin.pip:
     name:
+      - python-debian
       - redis
       - ansible
-    virtualenv: "/home/{{ ansible_install_for_user }}/.local"
+      - ansible-lint
+    executable: "{{ ansible_env.HOME }}/{{ ansible_userspace_venv_subdir }}/bin/pip"
   become: true
-  become_user: "{{ ansible_install_for_user }}"
+  become_user: "{{ ansible_userspace_user }}"
+
+- name: Ensure ~/.local/bin/ exists
+  ansible.builtin.file:
+    path: "/home/{{ ansible_userspace_user }}/.local/bin/"
+    state: directory
+    owner: "{{ ansible_userspace_user }}"
+    group: "{{ ansible_userspace_user }}"
+    mode: "0770"
+  become: true
+  become_user: "{{ ansible_userspace_user }}"
+
+- name: Link some useful bind from venv to ~/.local/bin/
+  ansible.builtin.file:
+    src: "{{ ansible_env.HOME }}/{{ ansible_userspace_venv_subdir }}/bin/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.local/bin/{{ item }}"
+    state: link
+    owner: "{{ ansible_userspace_user }}"
+    group: "{{ ansible_userspace_user }}"
+    follow: false
+  loop:
+    - ansible
+    - ansible-lint
+    - ansible-playbook
+    - ansible-galaxy
+    - python3
+  become: true
+  become_user: "{{ ansible_userspace_user }}"

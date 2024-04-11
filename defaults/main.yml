@@ -1,3 +1,4 @@
 ---
 
-ansible_install_for_user: root
+ansible_userspace_user: root
+ansible_userspace_venv_subdir: dev/ansible-venv
