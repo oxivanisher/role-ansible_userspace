@@ -28,13 +28,13 @@
       - redis
       - ansible
       - ansible-lint
-    executable: "{{ ansible_env.HOME }}/{{ ansible_userspace_venv_subdir }}/bin/pip"
+    executable: "{{ lookup('env', 'HOME') }}/{{ ansible_userspace_venv_subdir }}/bin/pip"
   become: true
   become_user: "{{ ansible_userspace_user }}"
 
 - name: Ensure ~/.local/bin/ exists
   ansible.builtin.file:
-    path: "/home/{{ ansible_userspace_user }}/.local/bin/"
+    path: "{{ lookup('env', 'HOME') }}/.local/bin/"
     state: directory
     owner: "{{ ansible_userspace_user }}"
     group: "{{ ansible_userspace_user }}"
@@ -44,8 +44,8 @@
 
 - name: Link some useful bind from venv to ~/.local/bin/
   ansible.builtin.file:
-    src: "{{ ansible_env.HOME }}/{{ ansible_userspace_venv_subdir }}/bin/{{ item }}"
-    dest: "{{ ansible_env.HOME }}/.local/bin/{{ item }}"
+    src: "{{ lookup('env', 'HOME') }}/{{ ansible_userspace_venv_subdir }}/bin/{{ item }}"
+    dest: "{{ lookup('env', 'HOME') }}/.local/bin/{{ item }}"
     state: link
     owner: "{{ ansible_userspace_user }}"
     group: "{{ ansible_userspace_user }}"
