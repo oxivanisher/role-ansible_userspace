@@ -3,3 +3,4 @@ ansible_userspace_packages:
   - redis-server
   - python3-full
   - python3-virtualenv
+  - sshpass
