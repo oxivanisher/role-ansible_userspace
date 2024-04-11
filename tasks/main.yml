@@ -27,6 +27,8 @@
     name: "{{ ansible_userspace_user }}"
     createhome: true
     state: present
+  become: true
+  become_user: root
 
 - name: Get home directory of ansible userspace user exists
   ansible.builtin.getent:
