@@ -22,14 +22,14 @@
   become: true
   become_user: root
 
-- name: Install required dependencies into the python environment
+- name: Install required dependencies into the virtual python environment
   ansible.builtin.pip:
     name:
       - python-debian
       - redis
       - ansible
       - ansible-lint
-    executable: "{{ lookup('env', 'HOME') }}/{{ ansible_userspace_venv_subdir }}/bin/pip"
+    virtualenv: "{{ lookup('env', 'HOME') }}/{{ ansible_userspace_venv_subdir }}"
   become: true
   become_user: "{{ ansible_userspace_user }}"
 

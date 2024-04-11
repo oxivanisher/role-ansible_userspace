@@ -14,11 +14,10 @@ Any pre-requisites that may not be covered by Ansible itself or the role should 
 Role Variables
 --------------
 
-| Name                          | Comment                       | Default value      |
-|-------------------------------|-------------------------------|--------------------|
-| ansible_userspace_user        | Which user will be configured | `root`             |
-| ansible_userspace_venv_subdir | Which user will be configured | `dev/ansible-venv` |
-
+| Name                          | Comment                                                                              | Default value      |
+|-------------------------------|--------------------------------------------------------------------------------------|--------------------|
+| ansible_userspace_user        | Which user will be configured                                                        | `root`             |
+| ansible_userspace_venv_subdir | Which subdirectory in the users home will be used for the python virtual environment | `dev/ansible-venv` |
 
 Example Playbook
 ----------------
