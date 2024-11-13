@@ -46,7 +46,9 @@
       - redis
       - ansible
       - ansible-lint
+      - argcomplete
     virtualenv: "{{ ansible_userspace_user_home }}/{{ ansible_userspace_venv_subdir }}"
+  notify: Enable python autocomplete
   become: true
   become_user: "{{ ansible_userspace_user }}"
 

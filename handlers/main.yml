@@ -1,2 +1,10 @@
 ---
-# handlers file for ansible_userspace
+
+- name: Enable python autocomplete
+  ansible.builtin.command:
+    argv:
+      - "{{ ansible_userspace_user_home }}/{{ ansible_userspace_venv_subdir }}/bin/activate-global-python-argcomplete"
+      - --user
+  changed_when: true
+  become: true
+  become_user: "{{ ansible_userspace_user }}"
