@@ -1,5 +1,6 @@
 ansible_userspace
 =================
+[![Ansible Lint](https://github.com/oxivanisher/role-ansible_userspace/actions/workflows/ansible-lint.yml/badge.svg)](https://github.com/oxivanisher/role-ansible_userspace/actions/workflows/ansible-lint.yml)
 
 This role confgures a Python virtual environment for Ansible in a users home.
 
