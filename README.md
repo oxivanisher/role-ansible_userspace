@@ -16,7 +16,7 @@ Role Variables
 --------------
 
 | Name                          | Comment                                                                              | Default value      |
-|-------------------------------|--------------------------------------------------------------------------------------|--------------------|
+| ----------------------------- | ------------------------------------------------------------------------------------ | ------------------ |
 | ansible_userspace_user        | Which user will be configured                                                        | `root`             |
 | ansible_userspace_venv_subdir | Which subdirectory in the users home will be used for the python virtual environment | `dev/ansible-venv` |
 
