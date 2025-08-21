@@ -76,6 +76,7 @@
     - ansible-lint
     - ansible-playbook
     - ansible-galaxy
+    - ansible-navigator
     - python3
   ignore_errors: "{{ ansible_check_mode }}"
   become: true
