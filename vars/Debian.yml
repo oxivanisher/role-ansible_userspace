@@ -5,3 +5,4 @@ ansible_userspace_packages:
   - python3-virtualenv
   - sshpass
   - python3-dev
+  - libonig-dev
