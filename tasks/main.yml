@@ -30,14 +30,12 @@
   become: true
   become_user: root
 
-- name: Get home directory of ansible userspace user exists
-  ansible.builtin.getent:
-    database: passwd
-    key: "{{ ansible_userspace_user }}"
-
-- name: Set home directory var for ansible userspace user exists
+- name: Lookup user home and group
   ansible.builtin.set_fact:
-    ansible_userspace_user_home: "{{ getent_passwd[ansible_userspace_user][4] }}"
+    ansible_userspace_user_home: "{{ lookup('env', 'HOME') }}"
+    ansible_userspace_user_group: "{{ lookup('pipe', 'id -gn') }}"
+  become: true
+  become_user: "{{ ansible_userspace_user }}"
 
 - name: Install required dependencies into the virtual python environment
   ansible.builtin.pip:
@@ -58,7 +56,7 @@
     path: "{{ ansible_userspace_user_home }}/.local/bin/"
     state: directory
     owner: "{{ ansible_userspace_user }}"
-    group: "{{ ansible_userspace_user }}"
+    group: "{{ ansible_userspace_user_group }}"
     mode: "0770"
   become: true
   become_user: "{{ ansible_userspace_user }}"
@@ -69,7 +67,7 @@
     dest: "{{ ansible_userspace_user_home }}/.local/bin/{{ item }}"
     state: link
     owner: "{{ ansible_userspace_user }}"
-    group: "{{ ansible_userspace_user }}"
+    group: "{{ ansible_userspace_user_group }}"
     follow: false
   loop:
     - ansible
