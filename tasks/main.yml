@@ -30,22 +30,15 @@
   become: true
   become_user: root
 
-- name: Get home directory of ansible userspace user
+- name: Gather ansible_userspace_user user infos
   ansible.builtin.getent:
     database: passwd
     key: "{{ ansible_userspace_user }}"
-  ignore_errors: "{{ ansible_check_mode }}"
 
-- name: Set home directory var for ansible userspace user
+- name: Lookup home and group for ansible_userspace_user
   ansible.builtin.set_fact:
+    ansible_userspace_user_group: "{{ getent_passwd[ansible_userspace_user][2] }}"
     ansible_userspace_user_home: "{{ getent_passwd[ansible_userspace_user][4] }}"
-  ignore_errors: "{{ ansible_check_mode }}"
-
-- name: Lookup user group
-  ansible.builtin.set_fact:
-    ansible_userspace_user_group: "{{ lookup('pipe', 'id -gn') }}"
-  become: true
-  become_user: "{{ ansible_userspace_user }}"
 
 - name: Install required dependencies into the virtual python environment
   ansible.builtin.pip:
