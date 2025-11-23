@@ -2,8 +2,8 @@
 - name: Gather os specific variables
   ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
-    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_facts.distribution}}-{{ ansible_facts.distribution_major_version }}.yml"
+    - "{{ ansible_facts.distribution}}.yml"
   tags: vars
 
 - name: Ensure requried packages are installed for Debian
@@ -37,8 +37,8 @@
 
 - name: Lookup home and group for ansible_userspace_user
   ansible.builtin.set_fact:
-    ansible_userspace_user_group: "{{ getent_passwd[ansible_userspace_user][2] }}"
-    ansible_userspace_user_home: "{{ getent_passwd[ansible_userspace_user][4] }}"
+    ansible_userspace_user_group: "{{ ansible_facts.getent_passwd[ansible_userspace_user][2] }}"
+    ansible_userspace_user_home: "{{ ansible_facts.getent_passwd[ansible_userspace_user][4] }}"
 
 - name: Install python3 requirements
   ansible.builtin.package:
