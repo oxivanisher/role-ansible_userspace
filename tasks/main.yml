@@ -2,8 +2,8 @@
 - name: Gather os specific variables
   ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_facts.distribution}}-{{ ansible_facts.distribution_major_version }}.yml"
-    - "{{ ansible_facts.distribution}}.yml"
+    - "{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_version }}.yml"
+    - "{{ ansible_facts.distribution }}.yml"
   tags: vars
 
 - name: Ensure requried packages are installed for Debian
@@ -59,7 +59,6 @@
       - ansible-navigator
       - argcomplete
     virtualenv: "{{ ansible_userspace_user_home }}/{{ ansible_userspace_venv_subdir }}"
-  ignore_errors: "{{ ansible_check_mode }}"
   notify: Enable python autocomplete
   become: true
   become_user: "{{ ansible_userspace_user }}"
