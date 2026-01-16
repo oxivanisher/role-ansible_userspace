@@ -59,6 +59,7 @@
       - ansible-navigator
       - argcomplete
     virtualenv: "{{ ansible_userspace_user_home }}/{{ ansible_userspace_venv_subdir }}"
+  ignore_errors: "{{ ansible_check_mode }}"
   notify: Enable python autocomplete
   become: true
   become_user: "{{ ansible_userspace_user }}"
