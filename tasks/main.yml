@@ -83,6 +83,7 @@
     - ansible-playbook
     - ansible-galaxy
     - ansible-navigator
+    - ansible-vault
     - python3
   ignore_errors: "{{ ansible_check_mode }}"
   become: true
